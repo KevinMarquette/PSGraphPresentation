@@ -1,7 +1,7 @@
 ﻿# PSGraph
 #region setup
 break;
-
+CD C:\workspace\PSGraphPresentation
 #endregion
 
 #region Intro
@@ -31,11 +31,12 @@ break;
     Find-Package graphviz | Install-Package -ForceBootstrap
 
     # Install PSGraph from the Powershell Gallery
-    Find-Module PSGraph | Install-Module
+    Find-Module PSGraph -Repository PSGallery | Install-Module
 
     # Import Module
     Import-Module PSGraph
-
+ 
+    Get-Command -Module PSGraph
 
 #endregion
 #region Getting Started
@@ -50,7 +51,6 @@ Graph g {
 
 } | Export-PSGraph -DestinationPath $env:TEMP\graph.png
 
-
 Start $env:TEMP\graph.png
 
 
@@ -63,6 +63,15 @@ Graph g {
     Edge -From Work -To Home
 
 } | Export-PSGraph -ShowGraph
+
+
+# Save to varable first
+$graph = Graph g {
+    Edge -From Home -To Work
+    Edge -From Work -To Home
+}
+$graph | Export-PSGraph -ShowGraph
+
 
 # Positional Parameters
 # Sequential edges in list of nodes
@@ -257,7 +266,7 @@ graph site1 {
 # Using variables
 $webServers = 'Web1','Web2','Web3'
 $apiServers = 'Api1','Api2'
-$databaseServers = 'DB1'
+$databaseServers = 'DB1','DB2'
 
 graph site1 {
     # External/DMZ nodes    
@@ -265,23 +274,24 @@ graph site1 {
     
     node $webServers @{shape='rect'}
     rank $webServers
-    edge loadbalancer $webServers
+    edge loadbalancer -To $webServers
  
     # Internal API servers    
     node $apiServers 
     rank $apiServers  
-    edge $webServers -to $apiServers
+    edge $webServers -To $apiServers
     
     # Database Servers    
     node $databaseServers @{shape='octagon'}
     rank $databaseServers
-    edge $apiServers -to $databaseServers
+    edge $apiServers -To $databaseServers
       
 }  | Export-PSGraph -ShowGraph
 
 
 # From datasource
 $servers = Import-Csv .\large.csv 
+$servers | Out-GridView
 
 $webServers = $servers | Where Role -eq 'Web' | Select -ExpandProperty ComputerName
 $apiServers = $servers | Where Role -eq 'Api' | Select -ExpandProperty ComputerName
@@ -330,6 +340,54 @@ graph site1 {
     
     $servers | ForEach-Object {
         Node -Name $_.ComputerName @{label="$($_.ComputerName)\n$($_.IP)"}
+    }
+
+}  | Export-PSGraph -ShowGraph
+
+
+# Add process time checks
+function Test-ServerConnection
+{
+    param($InputObject)
+    if ((Get-Random -Minimum 0 -Maximum 100) -gt 20)
+    {
+        $true
+    }
+    else
+    {
+        $false
+    }
+}
+graph site1 {
+    # External/DMZ nodes    
+    node loadbalancer @{shape='house'}
+    
+    node $webServers @{shape='rect'}
+    rank $webServers
+    edge loadbalancer $webServers
+ 
+    # Internal API servers    
+    node $apiServers 
+    rank $apiServers  
+    edge $webServers -to $apiServers
+    
+    # Database Servers    
+    node $databaseServers @{shape='octagon'}
+    rank $databaseServers
+    edge $apiServers -to $databaseServers
+    
+    $servers | ForEach-Object {
+        if(Test-ServerConnection $_.ComputerName){
+            $color = 'green'
+        }
+        else
+        {
+            $color = 'red'
+        }
+        Node -Name $_.ComputerName @{
+            label="$($_.ComputerName)\n$($_.IP)"
+            color=$color
+        }
     }
 
 }  | Export-PSGraph -ShowGraph
@@ -415,7 +473,78 @@ graph network @{rankdir='LR'}  {
 } | Export-PSGraph -ShowGraph
 
 
+#  Custom format
+
+Set-NodeFormatScript {$_.tolower()}
+Graph g {
+
+    Edge -From Home -To work
+    Edge -From Work -To Home
+
+} | Export-PSGraph -ShowGraph
+
+Set-NodeFormatScript
+
+
+#endregion
+
+
+#region Module Help details
+
+$moduleFilter = 'Microsoft.PowerShell.Management'
+$commandFilter = '.+'
+$graph = graph g {
+    node @{shape='rectangle'}
+ 
+  # Create all the cmdlets and modules
+  Get-Module | ? { $_.Name -match $moduleFilter } | ForEach-Object -Process {
+    $ModuleName = $_.name
+    Write-Progress -Activity "Parsing $ModuleName" -Status "Importing Commands"
+    Node $ModuleName @{shape='folder'}
+    
+    #Invoke-Cypher("CREATE (:Module { name:'$ModuleName'})")
+
+    Get-Command -Module $_ | ? { $_.Name -match $commandFilter } | ForEach-Object -Process {
+      $CommandName = $_.Name
+      Edge $moduleName -To $CommandName @{label='HAS_COMMAND'}      
+    }
+  }
+
+  # Create all the cmdlets and modules
+  Get-Module | ? { $_.Name -match $moduleFilter } | ForEach-Object -Process {
+    $ModuleName = $_.name
+    Write-Progress -Activity "Parsing $ModuleName"
+    Get-Command -Module $_ | ? { $_.Name -match $commandFilter } | ForEach-Object -Process {
+      $ThisCommandName = $_.Name
+
+      Write-Progress -Activity "Parsing $ModuleName" -Status "Creating links for $ThisCommandName"
+      $thisURI = $null
+      (Get-Help $_).relatedLinks.navigationLink | ForEach-Object -Process {
+        $HelpLink = $_
+
+        # Ignore anything that is a real URI
+        if ($HelpLink.uri -eq '') {
+          $ThatCommandName = $HelpLink.linkText
+          Edge $ThisCommandName -To $ThatCommandName
+          
+        } else {
+          $thisURI = $HelpLink.uri
+        }
+      }
+
+      if ($thisURI -ne $null) {
+
+        Node $ThisCommandName @{URL=$thisURI}
+        
+      }
+    }
+  }
+}
+
+$graph | Export-PSGraph -ShowGraph
+
 #endregion ...
+
 #region More resources
 $info = @{
     Topic       = 'Working with PSGraph'
