@@ -15,7 +15,7 @@ CD C:\workspace\PSGraphPresentation
     Blog      = 'kevinmarquette.github.io'
     Github    = 'github.com/kevinmarquette/psgraph'
 
-    ThisScript = 'https://github.com/KevinMarquette/PSGraphPresentation'
+    ThisDemo  = 'https://github.com/KevinMarquette/PSGraphPresentation'
 }
 
 
@@ -80,7 +80,7 @@ $graph | Export-PSGraph -ShowGraph
 # Sequential edges in list of nodes
 Graph g {
 
-    Edge Home Work
+    Edge Home -To Work
     Edge a,b,c,d,a 
 
 } | Export-PSGraph -ShowGraph
@@ -187,7 +187,7 @@ Graph g{
     
     Edge Home,Work1,Lunch,Work2,Home
 
-    Node Work1,Work2 @{label='Work'}
+    Node Work1,Work2 @{label='loanDepot'}
 
 } | Export-PSGraph -ShowGraph
 
@@ -208,6 +208,7 @@ Graph g {
 
 Graph g {   
 
+    
     Edge Home,Work1,Lunch,Work2,Home
 
     SubGraph 0 {
@@ -268,7 +269,7 @@ graph site1 {
 
 # Using variables
 $webServers = 'Web1','Web2','Web3'
-$apiServers = 'Api1','Api2'
+$apiServers = 'Api1','Api2','Api3','Api5'
 $databaseServers = 'DB1','DB2'
 
 graph site1 {
@@ -487,7 +488,7 @@ Graph g {
 
 } | Export-PSGraph -ShowGraph
 
-Set-NodeFormatScript
+Set-NodeFormatScript 
 
 
 #endregion
@@ -561,7 +562,8 @@ $info = @{
     Blog        = 'kevinmarquette.github.io'
     Github      = 'github.com/kevinmarquette/psgraph' 
     ReadTheDocs = 'http://psgraph.readthedocs.io'
-    GraphViz    = 'graphviz.org'   
+    GraphViz    = 'graphviz.org' 
+    MoreExamples = 'https://github.com/mcmiv413/PS-Diagram'  
 }
 
 #endregion
