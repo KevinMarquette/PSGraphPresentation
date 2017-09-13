@@ -14,6 +14,8 @@ CD C:\workspace\PSGraphPresentation
     Twitter   = '@kevinmarquette'
     Blog      = 'kevinmarquette.github.io'
     Github    = 'github.com/kevinmarquette/psgraph'
+
+    ThisScript = 'https://github.com/KevinMarquette/PSGraphPresentation'
 }
 
 
