@@ -19,6 +19,7 @@ CD C:\workspace\PSGraphPresentation
 }
 
 
+
 #endregion
 #region GraphViz
     start 'http://www.graphviz.org'
@@ -360,6 +361,7 @@ function Test-ServerConnection
         $false
     }
 }
+
 graph site1 {
     # External/DMZ nodes    
     node loadbalancer @{shape='house'}
