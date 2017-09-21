@@ -297,9 +297,9 @@ graph site1 {
 $servers = Import-Csv .\large.csv 
 $servers | Out-GridView
 
-$webServers = $servers | Where Role -eq 'Web' | Select -ExpandProperty ComputerName
-$apiServers = $servers | Where Role -eq 'Api' | Select -ExpandProperty ComputerName
-$databaseServers = $servers | Where Role -eq 'DB' | Select -ExpandProperty ComputerName
+$webServers = $servers | Where Role -eq 'Web' | Select -ExpandProperty 
+$apiServers = $servers | Where Role -eq 'Api' | Select -ExpandProperty 
+$databaseServers = $servers | Where Role -eq 'DB' | Select -ExpandProperty 
 
 graph site1 {
     # External/DMZ nodes    
