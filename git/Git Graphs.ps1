@@ -18,7 +18,7 @@ graph git  @{rankdir='LR'} {
 
 
 # Git history with branch details
-$git = git log --format="%h|%p|%s" -n 415 --branches=* | select -SkipLast 1
+$git = git log --format="%h|%p|%s" -n 15 --branches=* | select -SkipLast 1
 $HASH = 0
 $PARENT = 1
 $SUBJECT = 2
@@ -41,5 +41,5 @@ graph git  @{rankdir='LR'} {
             Edge $Matches.branch -To $Matches.hash
         }
     }
-} | Export-PSGraph -ShowGraph
+} | Export-PSGraph -ShowGraph -LayoutEngine Hierarchical
 
