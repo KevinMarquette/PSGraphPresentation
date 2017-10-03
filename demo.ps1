@@ -464,7 +464,7 @@ graph network @{rankdir='LR'}  {
 $netstat = Get-NetTCPConnection | where LocalAddress -EQ '192.168.50.181'
 $process = Get-Process | where id -in $netstat.OwningProcess
 
-graph network @{rankdir='LR'}  {
+graph network @{rankdir='LR'} {
     node @{shape='rect'}
     node $process -NodeScript {$_.ID} @{label={$_.ProcessName}}
 
@@ -478,8 +478,34 @@ graph network @{rankdir='LR'}  {
 } | Export-PSGraph -ShowGraph
 
 
-#  Custom format
+# Services
+$services = Get-Service
+graph services {
+    Node @{shape='box'}
+    Node $services -NodeScript {$_.name} @{
+        label={$_.DisplayName}
+        color={If($_.Status -eq 'Running'){'blue'}else{'red'}}
+    }
+} | Export-PSGraph -ShowGraph -LayoutEngine Radial
 
+
+# Dependent services
+Get-Service | Format-Table Name,ServicesDependedOn 
+
+$services = Get-Service
+$graph = graph services  @{rankdir='LR'} {
+    Node @{shape='box'}
+    Node $services -NodeScript {$_.name} @{
+        label={$_.DisplayName}
+        color={If($_.Status -eq 'Running'){'blue'}else{'red'}}
+    }
+    $linkedServices = $services | where{$_.ServicesDependedOn}
+    Edge $linkedServices -FromScript {$_.Name} -ToScript {$_.ServicesDependedOn.Name}
+} 
+$graph | Export-PSGraph -ShowGraph -LayoutEngine Hierarchical
+
+
+#  Custom format
 Set-NodeFormatScript {$_.tolower()}
 Graph g {
 
@@ -490,6 +516,23 @@ Graph g {
 
 Set-NodeFormatScript 
 
+# Dependent services with normalized node names
+$services = Get-Service
+Set-NodeFormatScript {$_.tolower()}
+$graph = graph services  @{rankdir='LR'} {
+    Node @{shape='box'}
+
+    
+    Node $services -NodeScript {$_.name} @{
+        label={$_.DisplayName}
+        color={If($_.Status -eq 'Running'){'blue'}else{'red'}}
+    }
+    $linkedServices = $services | where{$_.ServicesDependedOn}
+    Edge $linkedServices -FromScript {$_.Name} -ToScript {$_.ServicesDependedOn.Name}
+    
+} 
+Set-NodeFormatScript 
+$graph | Export-PSGraph -ShowGraph -LayoutEngine Hierarchical
 
 #endregion
 
