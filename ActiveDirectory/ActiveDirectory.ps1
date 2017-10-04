@@ -74,5 +74,6 @@ ForEach($group in $ADGroups)
     Get-Content web\$($group.Name).map | Add-Content -Path web\$($group.Name).html
 }
 
-# docker run --name PSGraph-demo --volume=$($PWD)/web:/usr/share/nginx/html:ro -d -p 8080:80 nginx
-Start 'http://localhost:8080'
+
+docker run --name PSGraph-demo --volume=$($PWD)/web:/usr/share/nginx/html:ro -d -p 8080:80 nginx
+Start 'http://localhost:8080/Consulting.html'
