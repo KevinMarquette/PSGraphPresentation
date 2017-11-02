@@ -1,6 +1,6 @@
 ﻿#region Demo prep
 $cred = Get-Credential -UserName administrator -Message DomainAdmin
-$Server = "10.2.45.1"
+$server = '172.29.144.2'
 $PSDefaultParameterValues["*-AD*:Server"] = $Server
 $PSDefaultParameterValues["*-AD*:Credential"] = $cred
 Start-VM Demo-DC

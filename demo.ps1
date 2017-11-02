@@ -45,7 +45,7 @@ CD C:\workspace\PSGraphPresentation
 #region Getting Started
 
 # basic graph
-Graph g {
+Graph {
 
     Node -Name Home
     Node -Name Work
@@ -60,7 +60,7 @@ Start $env:TEMP\graph.png
 
 # Node is optional
 # Auto show graph
-Graph g {
+Graph {
 
     Edge -From Home -To Work
     Edge -From Work -To Home
@@ -69,7 +69,7 @@ Graph g {
 
 
 # Save to varable first
-$graph = Graph g {
+$graph = Graph {
     Edge -From Home -To Work
     Edge -From Work -To Home
 }
@@ -78,7 +78,7 @@ $graph | Export-PSGraph -ShowGraph
 
 # Positional Parameters
 # Sequential edges in list of nodes
-Graph g {
+Graph {
 
     Edge Home -To Work
     Edge a,b,c,d,a 
@@ -87,7 +87,7 @@ Graph g {
 
 
 # edge attributes
-Graph g {
+Graph {
 
     Edge Home Work -Attributes @{label='car';color='red'}
     Edge Work Home @{color='blue'}
@@ -96,7 +96,7 @@ Graph g {
 
 
 # node attributes
-Graph g {
+Graph {
 
     Node -Name Home -Attributes @{shape='house';label='My House'}
     Node Work @{label='loanDepot'}
@@ -108,7 +108,7 @@ Graph g {
 
 
 # More node attributes
-Graph g {
+Graph {
 
     Node Home @{
         URL='http://www.google.com'
@@ -130,7 +130,7 @@ start 'http://www.graphviz.org/content/attrs'
 
 
 #default attributes for node/edge
-Graph g {
+Graph {
 
     Node @{shape='box'}
     Edge @{color='purple'}
@@ -142,7 +142,7 @@ Graph g {
 
 
 # top to bottom processing
-Graph g {
+Graph {
 
     Node Home
 
@@ -158,7 +158,7 @@ Graph g {
 # Graph attributes
 #   Label
 #   Left to Right
-Graph g @{label='My special graph'; rankdir='LR'} {
+Graph @{label='My special graph'; rankdir='LR'} {
 
     Node Home @{shape='house'}
 
@@ -169,23 +169,23 @@ Graph g @{label='My special graph'; rankdir='LR'} {
 
 
 # Duplicating Nodes scenario
-Graph g{
+Graph {
 
     Edge Home,Work,Lunch,Work,Home
 
 } | Export-PSGraph -ShowGraph
 
 
-Graph g{
+Graph {
 
     Edge Home,Work1,Lunch,Work2,Home
 
 } | Export-PSGraph -ShowGraph
 
 
-Graph g{   
+Graph {   
     
-    Edge Home,Work1,Lunch,Work2,Home
+    Edge "Home","Work1","Lunch","Work2","Home"
 
     Node Work1,Work2 @{label='loanDepot'}
 
@@ -193,7 +193,7 @@ Graph g{
 
 
 # Rank keyword
-Graph g {
+Graph {
 
     Edge Home,Work1,Lunch,Work2,Home
  
@@ -206,12 +206,12 @@ Graph g {
 
 # SubGraph keyword
 
-Graph g {   
+Graph {   
 
     
     Edge Home,Work1,Lunch,Work2,Home
 
-    SubGraph 0 {
+    SubGraph {
         Node Lunch        
         Node Work1,Work2 @{label='Work'}         
         Rank Work1,Work2
@@ -225,7 +225,7 @@ Graph g {
 
 
 # Server infrastructure
-graph site1 {
+graph {
     # External/DMZ nodes
    
     node loadbalancer @{shape='house'}
@@ -245,7 +245,7 @@ graph site1 {
 
 # With server nodes
 #   using arrays for node/edge
-graph site1 {
+graph {
     # External/DMZ nodes
     
     node loadbalancer @{shape='house'}
@@ -272,7 +272,7 @@ $webServers = 'Web1','Web2','Web3'
 $apiServers = 'Api1','Api2','Api3','Api5'
 $databaseServers = 'DB1','DB2'
 
-graph site1 {
+graph {
     # External/DMZ nodes    
     node loadbalancer @{shape='house'}
     
@@ -297,11 +297,11 @@ graph site1 {
 $servers = Import-Csv .\large.csv 
 $servers | Out-GridView
 
-$webServers = $servers | Where Role -eq 'Web' | Select -ExpandProperty 
-$apiServers = $servers | Where Role -eq 'Api' | Select -ExpandProperty 
-$databaseServers = $servers | Where Role -eq 'DB' | Select -ExpandProperty 
+$webServers = $servers | Where Role -eq 'Web' | Select -ExpandProperty ComputerName
+$apiServers = $servers | Where Role -eq 'Api' | Select -ExpandProperty ComputerName
+$databaseServers = $servers | Where Role -eq 'DB' | Select -ExpandProperty ComputerName
 
-graph site1 {
+graph {
     # External/DMZ nodes    
     node loadbalancer @{shape='house'}
     
@@ -324,7 +324,7 @@ graph site1 {
 
 # With IP address
 
-graph site1 {
+graph {
     # External/DMZ nodes    
     node loadbalancer @{shape='house'}
     
@@ -363,7 +363,7 @@ function Test-ServerConnection
     }
 }
 
-graph site1 {
+graph {
     # External/DMZ nodes    
     node loadbalancer @{shape='house'}
     
@@ -411,7 +411,7 @@ graph orgChart {
         Node -Name $_.ID @{label="$($_.name)\n$($_.title)"}
     }
 
-    $people | Where Manager | ForEach-Object {
+    $people | Where Manager  | ForEach-Object {
         Edge -From $_.Manager -To $_.ID
     }
 }| Export-PSGraph -ShowGraph
@@ -445,7 +445,7 @@ graph processes @{rankdir='LR'} {
 
 
 # Network Connections
-$netstat = Get-NetTCPConnection | where LocalAddress -EQ '192.168.50.181'
+$netstat = Get-NetTCPConnection -State Established,TimeWait
 
 graph network @{rankdir='LR'}  {
     Node @{shape='rect'}
@@ -506,7 +506,7 @@ $graph | Export-PSGraph -ShowGraph -LayoutEngine Hierarchical
 
 
 #  Custom format
-Set-NodeFormatScript {$_.tolower()}
+Set-NodeFormatScript { $_.tolower()}
 Graph g {
 
     Edge -From Home -To work
@@ -541,7 +541,7 @@ $graph | Export-PSGraph -ShowGraph -LayoutEngine Hierarchical
 
 $moduleFilter = 'Microsoft.PowerShell.Management'
 $commandFilter = '.+'
-$graph = graph g {
+$graph = graph {
     node @{shape='rectangle'}
  
   # Create all the cmdlets and modules
