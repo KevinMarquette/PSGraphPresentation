@@ -68,7 +68,7 @@ Graph {
 } | Export-PSGraph -ShowGraph
 
 
-# Save to varable first
+# Save to variable first
 $graph = Graph {
     Edge -From Home -To Work
     Edge -From Work -To Home
@@ -126,7 +126,7 @@ Graph {
 
 } | Export-PSGraph -ShowGraph
 
-start 'http://www.graphviz.org/content/attrs'
+start 'https://graphviz.gitlab.io/_pages/doc/info/attrs.html'
 
 
 #default attributes for node/edge
@@ -208,7 +208,6 @@ Graph {
 
 Graph {   
 
-    
     Edge Home,Work1,Lunch,Work2,Home
 
     SubGraph {
@@ -250,19 +249,19 @@ graph {
     
     node loadbalancer @{shape='house'}
     
-    node Web1,Web2,Web3 @{shape='rect'} 
-    rank Web1,Web2,Web3   
-    edge loadbalancer -To Web1,Web2,Web3     
+    node Web1,Web2 @{shape='rect'} 
+    rank Web1,Web2   
+    edge loadbalancer -To Web1,Web2     
 
     # Internal API servers    
-    node Api1,Api2 
-    rank Api1,Api2  
-    edge Web1,Web2,Web3 -To Api1,Api2
+    node Api1,Api2,Api3 
+    rank Api1,Api2,Api3  
+    edge Web1,Web2 -To Api1,Api2,Api3
     
     # Database Servers    
     node DB1 @{shape='octagon'}
     rank DB1
-    edge Api1,Api2 -To DB1
+    edge Api1,Api2,Api3 -To DB1
     
 }  | Export-PSGraph -ShowGraph
 
@@ -343,7 +342,7 @@ graph {
     edge $apiServers -to $databaseServers
     
     $servers | ForEach-Object {
-        Node -Name $_.ComputerName @{label="$($_.ComputerName)\n$($_.IP)"}
+        Node -Name $_.ComputerName @{ label = '{0}\n{1}' -f $_.ComputerName, $_.IP }
     }
 
 }  | Export-PSGraph -ShowGraph
@@ -390,11 +389,10 @@ graph {
             $color = 'red'
         }
         Node -Name $_.ComputerName @{
-            label="$($_.ComputerName)\n$($_.IP)"
-            color=$color
+            label = '{0}\n{1}' -f $_.ComputerName, $_.IP
+            color = $color
         }
     }
-
 }  | Export-PSGraph -ShowGraph
 
 
@@ -408,13 +406,13 @@ graph orgChart {
     Node @{shape='rect'}
 
     $people | ForEach-Object {
-        Node -Name $_.ID @{label="$($_.name)\n$($_.title)"}
+        Node -Name $_.ID @{ label = "{0}\n{1}" -f $_.Name, $_.Title }
     }
 
-    $people | Where Manager  | ForEach-Object {
+    $people | Where Manager | ForEach-Object {
         Edge -From $_.Manager -To $_.ID
     }
-}| Export-PSGraph -ShowGraph
+} | Show-PSGraph
 
 
 # Inline Object Enumeration
@@ -424,11 +422,11 @@ $people | Out-GridView
 graph orgChart {
     Node @{shape='rect'}
 
-    Node $people -NodeScript {$_.ID} @{label={"$($_.name)\n$($_.title)"}}
+    Node $people -NodeScript {$_.ID} @{ label = {"{0}\n{1}" -f $_.Name, $_.Title} }
     
     Edge -Node ($people | Where Manager) -FromScript {$_.Manager} -ToScript {$_.ID}
 
-}| Export-PSGraph -ShowGraph
+} | Show-PSGraph
 
 #endregion
 #region Other graphs
@@ -441,7 +439,7 @@ graph processes @{rankdir='LR'} {
     node @{shape='box'}
     node $process -NodeScript {$_.ProcessId} -Attributes @{label={$_.ProcessName}}
     edge $process -FromScript {$_.ParentProcessId} -ToScript {$_.ProcessId}
-} | Export-PSGraph -ShowGraph
+} | Show-PSGraph
 
 
 # Network Connections
@@ -461,7 +459,7 @@ graph network @{rankdir='LR'}  {
 
 
 # Process Connections
-$netstat = Get-NetTCPConnection | where LocalAddress -EQ '192.168.50.181'
+$netstat = Get-NetTCPConnection | where LocalAddress -EQ '192.168.86.60'
 $process = Get-Process | where id -in $netstat.OwningProcess
 
 graph network @{rankdir='LR'} {
