@@ -1,11 +1,7 @@
 # PSGraph
 #region setup
-Remove-Module posh-git -ErrorAction Ignore -WarningAction Ignore
-function prompt {"#PSHSummit\>"}
-Set-Location C:\workspace\PSGraphPresentation
-Import-Module PSGraph
-$path = ".\preview.png"
-Clear-Host
+Set-Location $PSScriptRoot;
+
 break;
 
 #endregion

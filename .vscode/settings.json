@@ -7,5 +7,7 @@
         "statusBar.background": "#91acbb",
         "statusBarItem.hoverBackground": "#7194a7",
         "statusBar.foreground": "#15202b"
-    }
+    },
+    "workbench.colorTheme": "PowerShell ISE",
+    "window.zoomLevel": 3
 }
