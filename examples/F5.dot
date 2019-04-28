@@ -1,0 +1,135 @@
+digraph g {
+    rankdir="LR";
+    compound="true";
+    node [shape="box";]
+    "[LtmPoolMember][ABC-Web-PROD] S-ATX-WABCEP01 8443" [color="Green";label="[LtmPoolMember]
+(f5-atx-eltm02.contoso.com)
+S-ATX-WABCEP01:8443";]
+    "[LtmPoolMember][ABC-Web-PROD] S-ATX-WABCEP02 8443" [color="Green";label="[LtmPoolMember]
+(f5-atx-eltm02.contoso.com)
+S-ATX-WABCEP02:8443";]
+    "[LtmPoolMember][ABC-Web-PROD] S-ATX-WABCEP04 8443" [color="Green";label="[LtmPoolMember]
+(f5-atx-eltm02.contoso.com)
+S-ATX-WABCEP04:8443";]
+    "[LtmPoolMember][ABC-Web-PROD] S-ATX-WABCEP03 8443" [color="Green";label="[LtmPoolMember]
+(f5-atx-eltm02.contoso.com)
+S-ATX-WABCEP03:8443";]
+    "[LtmPoolMember][ABC-Web-PROD] S-LAX-WABCEP02 8443" [color="Green";label="[LtmPoolMember]
+(f5-lax-eltm02.contoso.com)
+S-LAX-WABCEP02:8443";]
+    "[LtmPoolMember][ABC-Web-PROD] S-LAX-WABCEP01 8443" [color="Green";label="[LtmPoolMember]
+(f5-lax-eltm02.contoso.com)
+S-LAX-WABCEP01:8443";]
+    "[LtmPool][f5-atx-eltm02.contoso.com] ABC-Web-PROD" [color="Green";label="[LtmPool]
+(f5-atx-eltm02.contoso.com)
+ABC-Web-PROD";]
+    "[LtmPoolMember][ABC-Web-PROD] S-LAX-WABCEP04 8443" [color="Green";label="[LtmPoolMember]
+(f5-lax-eltm02.contoso.com)
+S-LAX-WABCEP04:8443";]
+    "[LtmNode] S-ATX-WABCEP02" [color="Gray";label="[LtmNode]
+(f5-atx-eltm02.contoso.com)
+S-ATX-WABCEP02 [169.2.9.70]";]
+    "[LtmNode] S-ATX-WABCEP01" [color="Gray";label="[LtmNode]
+(f5-atx-eltm02.contoso.com)
+S-ATX-WABCEP01 [169.2.9.69]";]
+    "[LtmNode] S-ATX-WABCEP04" [color="Gray";label="[LtmNode]
+(f5-atx-eltm02.contoso.com)
+S-ATX-WABCEP04 [169.2.9.72]";]
+    "[LtmNode] S-ATX-WABCEP03" [color="Gray";label="[LtmNode]
+(f5-atx-eltm02.contoso.com)
+S-ATX-WABCEP03 [169.2.9.71]";]
+    "[LtmNode] S-LAX-WABCEP02" [color="Gray";label="[LtmNode]
+(f5-lax-eltm02.contoso.com)
+S-LAX-WABCEP02 [169.1.9.72]";]
+    "[LtmNode] S-LAX-WABCEP01" [color="Gray";label="[LtmNode]
+(f5-lax-eltm02.contoso.com)
+S-LAX-WABCEP01 [169.1.9.67]";]
+    "[LtmNode] S-LAX-WABCEP04" [color="Gray";label="[LtmNode]
+(f5-lax-eltm02.contoso.com)
+S-LAX-WABCEP04 [169.1.9.78]";]
+    "[LtmNode] S-LAX-WABCEP03" [color="Gray";label="[LtmNode]
+(f5-lax-eltm02.contoso.com)
+S-LAX-WABCEP03 [169.1.9.77]";]
+    "[GTMPool] ABC-Web-PROD" [color="Green";label="[GtmPool]
+(f5-lax-igtm01.contoso.com, f5-lax-igtm01.contoso.com)
+ABC-Web-PROD";]
+    "[GTMPoolMember][ATX-ELTM] ABC-Web-PROD-https-PublicIP" [color="Green";label="[GtmPoolMember]
+(f5-lax-egtm01.contoso.com, f5-lax-egtm01.contoso.com)
+[ATX-ELTM] ABC-Web-PROD-https-PublicIP";]
+    "[GTMPoolMember][ATX-ELTM] ABC-Web-PROD-https" [color="Green";label="[GtmPoolMember]
+(f5-lax-igtm01.contoso.com, f5-lax-igtm01.contoso.com)
+[ATX-ELTM] ABC-Web-PROD-https";]
+    "[GTMPoolMember][LAX-ELTM] ABC-Web-PROD-https" [color="Green";label="[GtmPoolMember]
+(f5-lax-igtm01.contoso.com, f5-lax-igtm01.contoso.com)
+[LAX-ELTM] ABC-Web-PROD-https";]
+    "[WideIP] ABC-Web-PROD.gtm.contoso.com, igtm01.contoso.com" [color="Green";label="[WideIP]
+(f5-lax-igtm01.contoso.com, f5-lax-igtm01.contoso.com)
+ABC-Web-PROD.gtm.contoso.com";]
+    "[WideIP] ABC-Web-PROD.gtm.contoso.com, egtm01.contoso.com" [color="Green";label="[WideIP]
+(f5-lax-egtm01.contoso.com, f5-lax-egtm01.contoso.com)
+ABC-Web-PROD.gtm.contoso.com";]
+    "[GTMPoolMember][LAX-ELTM] ABC-Web-PROD-https-PublicIP" [color="Green";label="[GtmPoolMember]
+(f5-lax-egtm01.contoso.com, f5-lax-egtm01.contoso.com)
+[LAX-ELTM] ABC-Web-PROD-https-PublicIP";]
+    "[GTMPool] ABC-Web-PROD-External" [color="Green";label="[GtmPool]
+(f5-lax-egtm01.contoso.com, f5-lax-egtm01.contoso.com)
+ABC-Web-PROD-External";]
+    "[VirtualServer][f5-atx-eltm02.contoso.com] ABC-Web-PROD-https-PublicIP" [color="Green";label="[VirtualServer]
+(f5-atx-eltm02.contoso.com)
+ABC-Web-PROD-https-PublicIP [/Common/108.9.2.45:443]";]
+    "[VirtualServer][f5-atx-eltm02.contoso.com] ABC-Web-PROD-https" [color="Green";label="[VirtualServer]
+(f5-atx-eltm02.contoso.com)
+ABC-Web-PROD-https [/Common/169.2.1.1:443]";]
+    "[LtmPoolMember][ABC-Web-PROD] S-LAX-WABCEP03 8443" [color="Green";label="[LtmPoolMember]
+(f5-lax-eltm02.contoso.com)
+S-LAX-WABCEP03:8443";]
+    "[LtmPool][f5-lax-eltm02.contoso.com] ABC-Web-PROD" [color="Green";label="[LtmPool]
+(f5-lax-eltm02.contoso.com)
+ABC-Web-PROD";]
+    "[VirtualServer][f5-lax-eltm02.contoso.com] ABC-Web-PROD-https" [color="Green";label="[VirtualServer]
+(f5-lax-eltm02.contoso.com)
+ABC-Web-PROD-https [/Common/169.1.1.1:443]";]
+    "[VirtualServer][f5-lax-eltm02.contoso.com] ABC-Web-PROD-http" [color="Gray";label="[VirtualServer]
+(f5-lax-eltm02.contoso.com)
+ABC-Web-PROD-http [/Common/169.1.1.1:80]";]
+    "[VirtualServer][f5-atx-eltm02.contoso.com] ABC-Web-PROD-http" [color="Gray";label="[VirtualServer]
+(f5-atx-eltm02.contoso.com)
+ABC-Web-PROD-http [/Common/169.2.1.1:80]";]
+    "[VirtualServer][f5-lax-eltm02.contoso.com] ABC-Web-PROD-https-PublicIP" [color="Green";label="[VirtualServer]
+(f5-lax-eltm02.contoso.com)
+ABC-Web-PROD-https-PublicIP [/Common/108.9.0.45:443]";]
+    { rank=same;  "[VirtualServer][f5-lax-eltm02.contoso.com] ABC-Web-PROD-http"; "[VirtualServer][f5-lax-eltm02.contoso.com] ABC-Web-PROD-https"; "[VirtualServer][f5-lax-eltm02.contoso.com] ABC-Web-PROD-https-PublicIP"; "[VirtualServer][f5-atx-eltm02.contoso.com] ABC-Web-PROD-http"; "[VirtualServer][f5-atx-eltm02.contoso.com] ABC-Web-PROD-https"; "[VirtualServer][f5-atx-eltm02.contoso.com] ABC-Web-PROD-https-PublicIP"; }
+    "[GTMPool] ABC-Web-PROD"->"[GTMPoolMember][LAX-ELTM] ABC-Web-PROD-https" [style="";]
+    "[GTMPool] ABC-Web-PROD"->"[GTMPoolMember][ATX-ELTM] ABC-Web-PROD-https" [style="";]
+    "[GTMPool] ABC-Web-PROD-External"->"[GTMPoolMember][LAX-ELTM] ABC-Web-PROD-https-PublicIP" [style="";]
+    "[GTMPool] ABC-Web-PROD-External"->"[GTMPoolMember][ATX-ELTM] ABC-Web-PROD-https-PublicIP" [style="";]
+    "[GTMPoolMember][LAX-ELTM] ABC-Web-PROD-https"->"[VirtualServer][f5-lax-eltm02.contoso.com] ABC-Web-PROD-https" [style="";]
+    "[GTMPoolMember][LAX-ELTM] ABC-Web-PROD-https-PublicIP"->"[VirtualServer][f5-lax-eltm02.contoso.com] ABC-Web-PROD-https-PublicIP" [style="";]
+    "[GTMPoolMember][ATX-ELTM] ABC-Web-PROD-https"->"[VirtualServer][f5-atx-eltm02.contoso.com] ABC-Web-PROD-https" [style="";]
+    "[GTMPoolMember][ATX-ELTM] ABC-Web-PROD-https-PublicIP"->"[VirtualServer][f5-atx-eltm02.contoso.com] ABC-Web-PROD-https-PublicIP" [style="";]
+    "[LtmPool][f5-lax-eltm02.contoso.com] ABC-Web-PROD"->"[LtmPoolMember][ABC-Web-PROD] S-LAX-WABCEP01 8443" [style="";]
+    "[LtmPool][f5-lax-eltm02.contoso.com] ABC-Web-PROD"->"[LtmPoolMember][ABC-Web-PROD] S-LAX-WABCEP02 8443" [style="";]
+    "[LtmPool][f5-lax-eltm02.contoso.com] ABC-Web-PROD"->"[LtmPoolMember][ABC-Web-PROD] S-LAX-WABCEP03 8443" [style="";]
+    "[LtmPool][f5-lax-eltm02.contoso.com] ABC-Web-PROD"->"[LtmPoolMember][ABC-Web-PROD] S-LAX-WABCEP04 8443" [style="";]
+    "[LtmPool][f5-atx-eltm02.contoso.com] ABC-Web-PROD"->"[LtmPoolMember][ABC-Web-PROD] S-ATX-WABCEP01 8443" [style="";]
+    "[LtmPool][f5-atx-eltm02.contoso.com] ABC-Web-PROD"->"[LtmPoolMember][ABC-Web-PROD] S-ATX-WABCEP02 8443" [style="";]
+    "[LtmPool][f5-atx-eltm02.contoso.com] ABC-Web-PROD"->"[LtmPoolMember][ABC-Web-PROD] S-ATX-WABCEP03 8443" [style="";]
+    "[LtmPool][f5-atx-eltm02.contoso.com] ABC-Web-PROD"->"[LtmPoolMember][ABC-Web-PROD] S-ATX-WABCEP04 8443" [style="";]
+    "[LtmPoolMember][ABC-Web-PROD] S-LAX-WABCEP01 8443"->"[LtmNode] S-LAX-WABCEP01" [style="";]
+    "[LtmPoolMember][ABC-Web-PROD] S-LAX-WABCEP02 8443"->"[LtmNode] S-LAX-WABCEP02" [style="";]
+    "[LtmPoolMember][ABC-Web-PROD] S-LAX-WABCEP03 8443"->"[LtmNode] S-LAX-WABCEP03" [style="";]
+    "[LtmPoolMember][ABC-Web-PROD] S-LAX-WABCEP04 8443"->"[LtmNode] S-LAX-WABCEP04" [style="";]
+    "[LtmPoolMember][ABC-Web-PROD] S-ATX-WABCEP01 8443"->"[LtmNode] S-ATX-WABCEP01" [style="";]
+    "[LtmPoolMember][ABC-Web-PROD] S-ATX-WABCEP02 8443"->"[LtmNode] S-ATX-WABCEP02" [style="";]
+    "[LtmPoolMember][ABC-Web-PROD] S-ATX-WABCEP03 8443"->"[LtmNode] S-ATX-WABCEP03" [style="";]
+    "[LtmPoolMember][ABC-Web-PROD] S-ATX-WABCEP04 8443"->"[LtmNode] S-ATX-WABCEP04" [style="";]
+    "[VirtualServer][f5-lax-eltm02.contoso.com] ABC-Web-PROD-http"->"[VirtualServer][f5-lax-eltm02.contoso.com] ABC-Web-PROD-https" [style="dotted";]
+    "[VirtualServer][f5-lax-eltm02.contoso.com] ABC-Web-PROD-https"->"[LtmPool][f5-lax-eltm02.contoso.com] ABC-Web-PROD" [style="";]
+    "[VirtualServer][f5-lax-eltm02.contoso.com] ABC-Web-PROD-https-PublicIP"->"[LtmPool][f5-lax-eltm02.contoso.com] ABC-Web-PROD" [style="";]
+    "[VirtualServer][f5-atx-eltm02.contoso.com] ABC-Web-PROD-http"->"[VirtualServer][f5-atx-eltm02.contoso.com] ABC-Web-PROD-https" [style="dotted";]
+    "[VirtualServer][f5-atx-eltm02.contoso.com] ABC-Web-PROD-https"->"[LtmPool][f5-atx-eltm02.contoso.com] ABC-Web-PROD" [style="";]
+    "[VirtualServer][f5-atx-eltm02.contoso.com] ABC-Web-PROD-https-PublicIP"->"[LtmPool][f5-atx-eltm02.contoso.com] ABC-Web-PROD" [style="";]
+    "[WideIP] ABC-Web-PROD.gtm.contoso.com, egtm01.contoso.com"->"[GTMPool] ABC-Web-PROD-External" [style="";]
+    "[WideIP] ABC-Web-PROD.gtm.contoso.com, igtm01.contoso.com"->"[GTMPool] ABC-Web-PROD" [style="";]
+}
+

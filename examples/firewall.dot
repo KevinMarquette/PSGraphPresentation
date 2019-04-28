@@ -1,0 +1,107 @@
+digraph g {
+    rankdir="LR";
+    compound="true";
+node [shape=box;]
+"S-LAX-WABCCPD01" [shape="rectangle";label="S-LAX-WABCCPD01
+169.5.11.121";]
+"S-LAX-WABCCPD02" [shape="rectangle";label="S-LAX-WABCCPD02
+169.5.11.122";]
+"S-ATX-WABCCPD01" [shape="rectangle";label="S-ATX-WABCCPD01
+169.5.10.121";]
+"S-ATX-WABCCPD02" [shape="rectangle";label="S-ATX-WABCCPD02
+169.5.10.122";]
+"contoso.comSFTP-Node" [shape="rectangle";label="contoso.comSFTP-Node
+164.131.59.109";]
+"ABC-Core-PROD-LAX" [shape="rectangle";label="ABC-Core-PROD-LAX
+169.4.9.35";]
+"ABC-Core-PROD-ATX" [shape="rectangle";label="ABC-Core-PROD-ATX
+169.5.9.35";]
+"VendorSFTP-Node" [shape="rectangle";label="VendorSFTP-Node
+108.9.232.150";]
+"s-abcfiles-lax-Node1" [shape="rectangle";label="s-abcfiles-lax-Node1
+169.1.9.1";]
+"s-abcfiles-lax-Node2" [shape="rectangle";label="s-abcfiles-lax-Node2
+169.1.9.2";]
+"s-abcfiles-lax-Node3" [shape="rectangle";label="s-abcfiles-lax-Node3
+169.1.9.3";]
+"s-abcfiles-lax-Node4" [shape="rectangle";label="s-abcfiles-lax-Node4
+169.1.9.4";]
+"s-abcfiles-lax-Node5" [shape="rectangle";label="s-abcfiles-lax-Node5
+169.1.9.5";]
+"s-abcfiles-lax-Node6" [shape="rectangle";label="s-abcfiles-lax-Node6
+169.1.9.6";]
+"s-abcfiles-atx-Node1" [shape="rectangle";label="s-abcfiles-atx-Node1
+169.2.9.1";]
+"s-abcfiles-atx-Node2" [shape="rectangle";label="s-abcfiles-atx-Node2
+169.2.9.2";]
+"s-abcfiles-atx-Node3" [shape="rectangle";label="s-abcfiles-atx-Node3
+169.2.9.3";]
+"s-abcfiles-atx-Node4" [shape="rectangle";label="s-abcfiles-atx-Node4
+169.2.9.4";]
+"s-abcfiles-atx-Node5" [shape="rectangle";label="s-abcfiles-atx-Node5
+169.2.9.5";]
+"s-abcfiles-atx-Node6" [shape="rectangle";label="s-abcfiles-atx-Node6
+169.2.9.6";]
+"smart-connect-lax" [shape="rectangle";label="smart-connect-lax
+169.6.200.218";]
+"smart-connect-atx" [shape="rectangle";label="smart-connect-atx
+169.7.200.218";]
+"s-lax-dabc01" [shape="rectangle";label="s-lax-dabc01
+169.5.10.42";]
+"s-lax-dabc02" [shape="rectangle";label="s-lax-dabc02
+169.5.10.43";]
+"s-lax-dabccl-WCM-LAX" [shape="rectangle";label="s-lax-dabccl-WCM-LAX
+169.5.10.44";]
+"s-lax-dabccl-WCM-ATX" [shape="rectangle";label="s-lax-dabccl-WCM-ATX
+169.5.10.44";]
+"SQL-LAX-ABCLN01-AG-LAX" [shape="rectangle";label="SQL-LAX-ABCLN01-AG-LAX
+169.5.10.45";]
+"SQL-LAX-ABCLN01-AG-ATX" [shape="rectangle";label="SQL-LAX-ABCLN01-AG-ATX
+169.5.10.45";]
+"s-atx-dabc03" [shape="rectangle";label="s-atx-dabc03
+169.5.10.42";]
+"S-LAX-WABCCPD01"->"ABC-Core-PROD-member" 
+"S-LAX-WABCCPD02"->"ABC-Core-PROD-member" 
+"S-ATX-WABCCPD01"->"ABC-Core-PROD-member" 
+"S-ATX-WABCCPD02"->"ABC-Core-PROD-member" 
+"contoso.comSFTP-endpoint"->"contoso.comSFTP-Node" 
+"ABC-Core-PROD-endpoint"->"ABC-Core-PROD-LAX" 
+"ABC-Core-PROD-endpoint"->"ABC-Core-PROD-ATX" 
+"VendorSFTP-endpoint"->"VendorSFTP-Node" 
+"S-ABCFILES-SMB-endpoint"->"s-abcfiles-lax-Node1" 
+"S-ABCFILES-SMB-endpoint"->"s-abcfiles-lax-Node2" 
+"S-ABCFILES-SMB-endpoint"->"s-abcfiles-lax-Node3" 
+"S-ABCFILES-SMB-endpoint"->"s-abcfiles-lax-Node4" 
+"S-ABCFILES-SMB-endpoint"->"s-abcfiles-lax-Node5" 
+"S-ABCFILES-SMB-endpoint"->"s-abcfiles-lax-Node6" 
+"S-ABCFILES-SMB-endpoint"->"s-abcfiles-atx-Node1" 
+"S-ABCFILES-SMB-endpoint"->"s-abcfiles-atx-Node2" 
+"S-ABCFILES-SMB-endpoint"->"s-abcfiles-atx-Node3" 
+"S-ABCFILES-SMB-endpoint"->"s-abcfiles-atx-Node4" 
+"S-ABCFILES-SMB-endpoint"->"s-abcfiles-atx-Node5" 
+"S-ABCFILES-SMB-endpoint"->"s-abcfiles-atx-Node6" 
+"S-ABCFILES-SMB-endpoint"->"smart-connect-lax" 
+"S-ABCFILES-SMB-endpoint"->"smart-connect-atx" 
+"SQL-ABC-LAX2-DB-endpoint"->"s-lax-dabc01" 
+"SQL-ABC-LAX2-DB-endpoint"->"s-lax-dabc02" 
+"SQL-ABC-LAX2-DB-endpoint"->"s-lax-dabccl-WCM-LAX" 
+"SQL-ABC-LAX2-DB-endpoint"->"s-lax-dabccl-WCM-ATX" 
+"SQL-ABC-LAX2-DB-endpoint"->"SQL-LAX-ABCLN01-AG-LAX" 
+"SQL-ABC-LAX2-DB-endpoint"->"SQL-LAX-ABCLN01-AG-ATX" 
+"SQL-ABC-LAX2-DB-endpoint"->"s-atx-dabc03" 
+"ABC-Core-PROD-member"->"contoso.comSFTP-access" 
+"ABC-Core-PROD-member"->"EFG-Lending-PROD-access" 
+"ABC-Core-PROD-member"->"ABC-Rules-PROD-access" 
+"ABC-Core-PROD-member"->"SQL-ABC-LAX2-DB-access" 
+"ABC-Core-PROD-member"->"EFG-ThirdParty-PROD-access" 
+"ABC-Core-PROD-member"->"VendorSFTP-access" 
+"ABC-Core-PROD-member"->"ABCPartner-Core-PROD-access" 
+"ABC-Core-PROD-member"->"EFG-Core-PROD-access" 
+"ABC-Core-PROD-member"->"S-ABCFILES-SMB-access" 
+"SQL-ABC-LAX2-DB-access"->"SQL-ABC-LAX2-DB-endpoint" [color="green";label="FWR Allow 1433";]
+"S-ABCFILES-SMB-access"->"S-ABCFILES-SMB-endpoint" [color="green";label="FWR Allow 445";]
+"ABC-Core-PROD-access"->"ABC-Core-PROD-endpoint" [color="green";label="FWR Allow 443";]
+"contoso.comSFTP-access"->"contoso.comSFTP-endpoint" [color="green";label="FWR Allow 22";]
+"VendorSFTP-access"->"VendorSFTP-endpoint" [color="green";label="FWR Allow 10022";]
+}
+

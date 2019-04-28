@@ -2,13 +2,14 @@
 #region setup
 break;
 CD C:\workspace\PSGraphPresentation
+Import-Module PSGraph
 #endregion
 
 #region Intro
 @{
     Topic     = 'Working with PSGraph'
     Presenter = 'Kevin Marquette'
-    Title     = 'Sr. DevOps Engineer'
+    Title     = 'Principal DevOps Engineer'
 
     Email     = 'kevmar@gmail.com'
     Twitter   = '@kevinmarquette'
@@ -30,11 +31,17 @@ CD C:\workspace\PSGraphPresentation
 #region Installing PSGraph
 
     # Install GraphViz from the Chocolatey repo
-    Register-PackageSource -Name Chocolatey -ProviderName Chocolatey -Location http://chocolatey.org/api/v2/
+    $PackageSource = @{
+        Location     = 'http://chocolatey.org/api/v2/'
+        Name         = 'Chocolatey'
+        ProviderName = 'Chocolatey'
+    }
+    Register-PackageSource @PackageSource
     Find-Package graphviz | Install-Package -ForceBootstrap
 
     # Install PSGraph from the Powershell Gallery
-    Find-Module PSGraph -Repository PSGallery | Install-Module
+    Find-Module PSGraph -Repository PSGallery | 
+        Install-Module -Force -AllowClobber -Scope CurrentUser
 
     # Import Module
     Import-Module PSGraph
@@ -45,6 +52,12 @@ CD C:\workspace\PSGraphPresentation
 #region Getting Started
 
 # basic graph
+Graph {
+    Node start,middle,end
+    Edge start -To middle
+    Edge middle -To end        
+} | Show-PSGraph
+
 Graph {
 
     Node -Name Home
@@ -109,21 +122,17 @@ Graph {
 
 # More node attributes
 Graph {
-
-    Node Home @{
-        URL='http://www.google.com'
-        color='blue'
-        comment='comment'
-        fontcolor='red'
-        fontsize='14.0'
-        label='My House'
-        shape='house'
-        width='2'
+    node pwsh @{
+        label = ">_"
+        color = '#123456'
+        fontcolor = 'white'
+        style = 'filled'
+        shape = 'parallelogram'
+        fontsize = '48'
+        fontname = 'consolas bold'
+        margin = '0,0'
+        URL = 'https://www.github.com/powershell/powershell'
     }
-
-    Edge Home Work 
-    Edge Work Home
-
 } | Export-PSGraph -ShowGraph
 
 start 'https://graphviz.gitlab.io/_pages/doc/info/attrs.html'
