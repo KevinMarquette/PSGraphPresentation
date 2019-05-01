@@ -511,22 +511,28 @@ Show-NetworkConnectionGraph
 Show-ProcessConnectionGraph
 
 # Git diagrams
-  Show-GitGraph -ShowCommitMessage -Direction TopToBottom
-  Show-GitGraph -ShowCommitMessage -Direction TopToBottom -Path ..\PSGraph
-  Show-GitGraph -ShowCommitMessage -Direction TopToBottom -Path ..\PowerShell
-  Show-GitGraph -ShowCommitMessage -Direction TopToBottom -Path ..\PowerShellGet
+$gitGraph = @{
+    ShowCommitMessage = $true
+    Direction = 'TopToBottom'
+}
+Show-GitGraph @gitGraph
+Show-GitGraph -Path ..\PSGraph       @gitGraph
+Show-GitGraph -Path ..\PowerShell    @gitGraph 
+Show-GitGraph -Path ..\PowerShellGet @gitGraph 
 
 
 # Graph of command calls
-  Show-AstCommandGraph -Path ..\PSGraph\output\PSGraph\PSGraph.psm1
-  Show-AstCommandGraph -Path ..\PSGraph\output\PSGraph\PSGraph.psm1 -AllCalls
+Show-AstCommandGraph -Path ..\PSGraph\output\PSGraph\PSGraph.psm1
+Show-AstCommandGraph -Path ..\PSGraph\output\PSGraph\PSGraph.psm1 -AllCalls
 
-  # Internal Modules
-  Show-AstCommandGraph -Path C:\ldx\LDXGet\Output\LDXGet\LDXGet.psm1
-  Show-AstCommandGraph -Path C:\ldx\LDF5\Output\LDF5\LDF5.psm1
+# Internal Modules
+Show-AstCommandGraph -Path C:\ldx\LDXGet\Output\LDXGet\LDXGet.psm1
+Show-AstCommandGraph -Path C:\ldx\LDF5\Output\LDF5\LDF5.psm1
 
-  # PowerShellGet
-  Show-AstCommandGraph -Path $env:home\documents\powershell\modules\PowerShellGet\2.1.2\PSModule.psm1
+# PowerShellGet
+Show-AstCommandGraph -Path $env:home\documents\powershell\modules\PowerShellGet\2.1.2\PSModule.psm1
+
+
 
 # AST parsing
 $script = {
