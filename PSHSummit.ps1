@@ -24,12 +24,15 @@ $PackageSource = @{
 Register-PackageSource @PackageSource
 Find-Package graphviz | Install-Package -ForceBootstrap
 
+
 # Install PSGraph from the Powershell Gallery
 Find-Module PSGraph -Repository PSGallery |
     Install-Module -Force -AllowClobber -Scope CurrentUser
 
+
 # Import Module
 Import-Module PSGraph
+
 
 Get-Command -Module PSGraph
 
@@ -44,6 +47,7 @@ Graph {
 } | Show-PSGraph
 
 
+
 # Export-PSGraph
 $path = ".\preview.png"
 $data = Graph {
@@ -56,6 +60,7 @@ $data | Export-PSGraph $path
 code $path
 
 
+
 # Edge Syntax
 Graph {
     Edge -From First -To Second
@@ -64,11 +69,13 @@ Graph {
 } | Export-PSGraph $path
 
 
+
 # Edge multipath
 Graph {
     Edge A -To 1,2,3
     Edge 2,3 -To C,D,f
 } | Export-PSGraph $path
+
 
 
 # Edge atributes
@@ -80,11 +87,13 @@ Graph {
 } | Export-PSGraph $path
 
 
+
 # Node Syntax
 Graph {
     Node First
     Node Second,Third,Fourth
 } | Export-PSGraph $path
+
 
 
 # Node Labels
@@ -94,6 +103,8 @@ Graph {
     }
     Edge First -To Second
 } | Export-PSGraph $path
+
+
 
 # Lots of attribute options
 Graph {
@@ -122,6 +133,7 @@ Graph @{ label = 'Label of the Graph'; rankdir = 'LR' } {
 start 'https://graphviz.gitlab.io/_pages/doc/info/attrs.html'
 
 
+
 # Attribute defaults
 Graph @{ label = 'Attribute Defaults' } {
     Node @{shape = 'box'}
@@ -131,6 +143,8 @@ Graph @{ label = 'Attribute Defaults' } {
     Edge start -To middle
     Edge middle -To end
 } | Export-PSGraph $path
+
+
 
 ## Other features
 
@@ -148,6 +162,7 @@ Graph @{ label = 'Rank' } {
 } | Export-PSGraph $path
 
 
+
 # Subgraph
 Graph  {
     Edge First,Second,Third
@@ -157,6 +172,7 @@ Graph  {
         Node First,Second,Fourth
     }
 } | Export-PSGraph $path
+
 
 
 Graph {
@@ -170,6 +186,7 @@ Graph {
 } | Export-PSGraph $path
 
 
+
 # Records
 Graph @{ label = 'Record' } {
     Record Table1 {
@@ -178,6 +195,7 @@ Graph @{ label = 'Record' } {
         'Row3'
     }
 } | Export-PSGraph $path
+
 
 
 # Edges from Row to Row
@@ -200,6 +218,7 @@ Graph @{ label = 'Row Edges' } {
 } | Export-PSGraph $path
 
 
+
 # Entity
 $object = [PSCustomObject]@{
     First = 'Kevin'
@@ -212,7 +231,8 @@ Graph @{ label = 'Entity' } {
 } | Export-PSGraph $path
 
 
-# Alternate View
+
+# Entity: Alternate View
 Graph @{ label = 'Entity View' }{
     Entity $object -Name 'Person' -Show Value
 } | Export-PSGraph $path
@@ -394,6 +414,7 @@ graph orgChart @{label = 'Basic org chart'} {
 } | Export-PSGraph $path
 
 
+
 # Inline Object Enumeration
 $people = Import-Csv .\orgChart.csv
 
@@ -425,6 +446,7 @@ graph processes @{rankdir='LR'} {
     }
     edge $process -FromScript {$_.ParentProcessId} -ToScript {$_.ProcessId}
 } | Show-PSGraph
+
 
 
 # Network Connections
@@ -470,12 +492,15 @@ graph network @{rankdir='LR'} {
 } | Show-PSGraph
 
 
+
 # Production examples
 start .\examples\dependency.png
 start .\examples\firewall.png
 start .\examples\f5.png
 start .\examples\trace.png
 start .\examples\trace2.png
+
+
 
 # Bonus Content
 # PSGraphPlus
@@ -509,25 +534,25 @@ $script = {
     $ABC | Select-Stuff
 }
 
-    $script = {
-        $test = $true
-        if($test -eq $true)
-        {
-            Write-Verbose "Now is the time" 
-        }
-        else
-        {
-            Write-Error "Oh no, this should never happen" -ErrorAction Stop
-        }
+$script = {
+    $test = $true
+    if($test -eq $true)
+    {
+        Write-Verbose "Now is the time" 
     }
+    else
+    {
+        Write-Error "Oh no, this should never happen" -ErrorAction Stop
+    }
+}
 
-    $script | Show-AstGraph
+$script | Show-AstGraph
 
-    # Show live command
-    $command = Get-Command Watch-Command
-    Show-AstGraph -ScriptBlock $command.ScriptBlock
+# Show live command
+$command = Get-Command Watch-Command
+Show-AstGraph -ScriptBlock $command.ScriptBlock
 
-    # Annotate original script
-    $script | Show-AstGraph -Annotate
+# Annotate original script
+$script | Show-AstGraph -Annotate
 
 #endregion
