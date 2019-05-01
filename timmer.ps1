@@ -24,11 +24,6 @@ $ColorMap = @(
         Color = "#6666FF"
     },
     @{
-        Name = "Basic Features: Half way done"
-        Time = $startTime.AddMinutes(8)
-        Color = "#AAAAFF"
-    },
-    @{
         Name = "Basic Features: Finish"
         Time = $startTime.AddMinutes(12)
         Color = "#DDDDFF"
@@ -40,7 +35,7 @@ $ColorMap = @(
     },  
     @{
         Name = "Other Features: Finish"
-        Time = $startTime.AddMinutes(13)
+        Time = $startTime.AddMinutes(16)
         Color = "#AAFFFF"
     },
     @{
@@ -95,25 +90,28 @@ $ColorMap = @(
     }
 )
 $index = 0
+$delta = 0
 while($true)
 {
     $settings = Get-Content $settingsPath | 
         ConvertFrom-JSON
     $color = $ColorMap[$index].Color
-    Write-Host ('[{0}] {1:HH:mm:ss} {2}' -f $color, (Get-Date),   $ColorMap[$index].Name)
+    Write-Host ''
+    Write-Host ('[{0}] {1:HH:mm:ss} [{2:0.00}] {3}' -f $color, (Get-Date), $delta,  $ColorMap[$index].Name) -NoNewline
     $settings.'workbench.colorCustomizations'.'statusBar.background' = $color
     $settings.'workbench.colorCustomizations'.'titleBar.activeBackground' = $color
     $settings.'workbench.colorCustomizations'.'titleBar.inactiveBackground' = $color
     $settings | ConvertTo-Json | Set-Content -Path $settingsPath -Encoding utf8
-    Start-Sleep -Seconds 5
+    Start-Sleep -Seconds 10
 
     if($ColorMap[$index + 1].Time -le (Get-Date))
     {
-        $index++        
+        $index++    
         Write-Host ("  [{0}] Next Index [{1}]" -f $ColorMap[$index].Time, $index)
     }
     if($index -ge $ColorMap.Length)
     {
         break
     }
+    $delta = ($ColorMap[$index + 1].Time - (Get-Date)).TotalMinutes
 }

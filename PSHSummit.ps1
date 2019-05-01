@@ -1,11 +1,4 @@
-# PSGraph
-#region setup
-Set-Location $PSScriptRoot;
-
-break;
-
-#endregion
-
+                                                                                 break; # F5 protection, You saw nothing
 #region Intro
 @{
     Topic     = 'Working with PSGraph'
@@ -511,6 +504,11 @@ Show-ProcessConnectionGraph
   Show-AstCommandGraph -Path $env:home\documents\powershell\modules\PowerShellGet\2.1.2\PSModule.psm1
 
 # AST parsing
+$script = {
+    $ABC = Get-Stuff
+    $ABC | Select-Stuff
+}
+
     $script = {
         $test = $true
         if($test -eq $true)
