@@ -1,6 +1,5 @@
 $settingsPath = '.\.vscode\settings.json'
-$startTime = [datetime]"2019/04/28 10:20:00AM"
-$startTime = Get-Date
+$startTime = [datetime]"2019/05/01 4:15:00PM"
 
 $ColorMap = @(
     @{
@@ -91,10 +90,11 @@ $ColorMap = @(
 )
 $index = 0
 $delta = 0
+$settings = Get-Content $settingsPath | 
+    ConvertFrom-JSON
+    
 while($true)
 {
-    $settings = Get-Content $settingsPath | 
-        ConvertFrom-JSON
     $color = $ColorMap[$index].Color
     Write-Host ''
     Write-Host ('[{0}] {1:HH:mm:ss} [{2:0.00}] {3}' -f $color, (Get-Date), $delta,  $ColorMap[$index].Name) -NoNewline

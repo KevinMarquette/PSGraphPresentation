@@ -38,10 +38,11 @@ Get-Command -Module PSGraph
 
 #endregion
 #region Features
+# 3-13
 
 # basic graph
 Graph {
-    node start, middle, end
+    Node start, middle, end
     Edge start -To middle
     Edge middle -To end
 } | Show-PSGraph
@@ -58,7 +59,7 @@ $data = Graph {
 $data | Export-PSGraph $path
 
 code $path
-
+GET-CONTENT '.\examples\f5.dot' -Raw | Show-PSgraph   
 
 
 # Edge Syntax
@@ -122,7 +123,9 @@ Graph {
 
 
 # Graph Attributes
-Graph @{ label = 'Label of the Graph'; rankdir = 'LR' } {
+Graph @{ 
+    label = 'Label of the Graph'; 
+    rankdir = 'LR' } {
     node start, middle, end
     Edge start -To middle
     Edge middle -To end
@@ -147,13 +150,14 @@ Graph @{ label = 'Attribute Defaults' } {
 
 
 ## Other features
+# 13-17
 
 # Rank
 Graph @{ label = 'Rank' } {
     Edge First,Second,Third
     Edge Fourth,Fith,Sixth
 
-    #Rank Second,Fourth,Sixth
+    Rank Second,Fourth,Sixth
 
     Node Second,Fourth,Sixth @{
         color='blue'
@@ -241,6 +245,7 @@ Graph @{ label = 'Entity View' }{
 
 #endregion
 #region Example Diagrams
+# 17-25
 
 # Server infrastructure
 graph {
@@ -393,6 +398,7 @@ graph {
 #endregion
 
 #region dynamic data
+# 25 - 29
 
 # OrgChart
 #  Enumerating objects
@@ -426,7 +432,9 @@ graph orgChart {
     }
 
     $hasManager = $people | Where Manager
-    Edge -Node $hasManager -FromScript {$_.Manager} -ToScript {$_.ID}
+    Edge -Node $hasManager `
+        -FromScript {$_.Manager} `
+        -ToScript {$_.ID}
 
 } | Export-PSGraph $path
 
@@ -434,6 +442,7 @@ graph orgChart {
 
 #endregion
 #region Lightning demos
+# 29-34
 
 # Parent and Child processes
 $process = Get-CimInstance -ClassName CIM_Process
@@ -470,7 +479,7 @@ graph network @{rankdir='LR'}  {
 
 # Process Connections
 $netstat = Get-NetTCPConnection | 
-    where LocalAddress -EQ '192.168.86.90'
+    where LocalAddress -EQ '10.18.14.120'
 $process = Get-Process | 
     where id -in $netstat.OwningProcess
 
@@ -494,6 +503,7 @@ graph network @{rankdir='LR'} {
 
 
 # Production examples
+# 34-38
 start .\examples\dependency.png
 start .\examples\firewall.png
 start .\examples\f5.png
@@ -503,6 +513,8 @@ start .\examples\trace2.png
 
 
 # Bonus Content
+# 38-40
+
 # PSGraphPlus
 
 Get-Command -Module PSGraphPlus
@@ -535,19 +547,14 @@ Show-AstCommandGraph -Path $env:home\documents\powershell\modules\PowerShellGet\
 
 
 # AST parsing
-$script = {
-    $ABC = Get-Stuff
-    $ABC | Select-Stuff
-}
+# 40-44
 
 $script = {
     $test = $true
-    if($test -eq $true)
-    {
+    if($test -eq $true) {
         Write-Verbose "Now is the time" 
     }
-    else
-    {
+    else {
         Write-Error "Oh no, this should never happen" -ErrorAction Stop
     }
 }

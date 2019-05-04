@@ -1,13 +1,13 @@
 {
-    "workbench.colorCustomizations": {
-        "titleBar.activeBackground": "#91acbb",
-        "titleBar.inactiveBackground": "#91acbb99",
-        "titleBar.activeForeground": "#15202b",
-        "titleBar.inactiveForeground": "#15202b99",
-        "statusBar.background": "#91acbb",
-        "statusBarItem.hoverBackground": "#7194a7",
-        "statusBar.foreground": "#15202b"
-    },
-    "workbench.colorTheme": "PowerShell ISE",
-    "window.zoomLevel": 4
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#91acbb",
+    "titleBar.inactiveBackground": "#91acbb",
+    "titleBar.activeForeground": "#15202b",
+    "titleBar.inactiveForeground": "#15202b99",
+    "statusBar.background": "#91acbb",
+    "statusBarItem.hoverBackground": "#7194a7",
+    "statusBar.foreground": "#15202b"
+  },
+  "workbench.colorTheme": "PowerShell ISE",
+  "window.zoomLevel": 3
 }
